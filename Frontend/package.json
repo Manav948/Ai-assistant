@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "production": "vite build && vite preview"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",
@@ -18,6 +19,7 @@
     "react-dom": "^19.1.0",
     "react-hot-toast": "^2.5.2",
     "react-icon": "^1.0.0",
+    "react-icons": "^5.5.0",
     "react-router-dom": "^7.6.3"
   },
   "devDependencies": {
