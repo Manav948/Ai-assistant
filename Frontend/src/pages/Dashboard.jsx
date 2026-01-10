@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
 import useVoice from "../hooks/useVoice.js";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext.jsx";
 
 const Dashboard = () => {
   const { user } = useAuth();
-  const navigate = useNavigate();
   const [assistantName, setAssistantName] = useState("");
   const [assistantAvatar, setAssistantAvatar] = useState("");
 
@@ -24,10 +22,8 @@ const Dashboard = () => {
       setAssistantAvatar(user.assistantAvatar);
       localStorage.setItem("assistantName", user.assistantName);
       localStorage.setItem("assistantAvatar", user.assistantAvatar);
-    } else if (user) {
-      navigate("/profile");
     }
-  }, [user, navigate]);
+  }, [user]);
 
   // derive wake word
   const wakeWord = useMemo(
@@ -59,36 +55,11 @@ const Dashboard = () => {
     sendCommand();
   }, [command, speak]);
 
-  const handleLogout = () => {
-    localStorage.clear();
-    navigate("/signin");
-  };
-
-  const handleCustomize = () => {
-    navigate("/profile");
-  };
-
   return (
     <div className="relative min-h-screen bg-black text-white flex flex-col items-center justify-center px-6 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(125%_125%_at_50%_10%,#0f0c29_30%,#302b63_70%,#24243e_100%)]"></div>
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#4f4f4f20_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[length:14px_24px]"></div>
-
-      {/* Top Action Bar */}
-      <div className="absolute top-4 right-4 flex gap-3 backdrop-blur-md bg-white/10 border border-white/20 rounded-full px-3 py-2">
-        <button
-          onClick={handleCustomize}
-          className="px-3 py-1.5 rounded-md text-sm font-semibold bg-indigo-500 hover:bg-indigo-600 text-white transition shadow-lg shadow-indigo-500/30"
-        >
-          Customize
-        </button>
-        <button
-          onClick={handleLogout}
-          className="px-3 py-1.5 rounded-md text-sm font-semibold bg-red-500 hover:bg-red-600 text-white transition shadow-lg shadow-red-500/30"
-        >
-          Logout
-        </button>
-      </div>
 
       {/* Status */}
       <div className="absolute top-4 left-4 text-xs text-gray-400">
