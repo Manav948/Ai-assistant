@@ -11,6 +11,15 @@ Built with **React**, **Node.js**, **Express**, and **MongoDB**.
 - 🔐 **User Authentication** with JWT & cookies.
 - 🌐 **Full-Stack Setup** (React + Express + MongoDB).
 
+- The application features a completely redesigned, modern UI with:
+- ✨ Beautiful gradient backgrounds with animated blobs
+- 🎭 Smooth animations using Framer Motion
+- 🎯 Intuitive user interface with clear visual feedback
+- 📱 Fully responsive design
+- 🌈 Modern color schemes and glassmorphism effects
+- ⚡ Fast and optimized performance
+
+
 ## Tech Stack
 - **Frontend:** React, Tailwind CSS
 - **Backend:** Node.js, Express
@@ -22,3 +31,16 @@ Built with **React**, **Node.js**, **Express**, and **MongoDB**.
 1. Clone the repo:
    ```bash
    git clone https://github.com/<your-username>/voice-ai-assistant.git
+
+2. **Frontend:**
+```bash
+cd Frontend
+npm install
+npm run dev
+```
+2. **Backend:**
+```bash
+cd Backend
+npm install
+npm run dev
+```
