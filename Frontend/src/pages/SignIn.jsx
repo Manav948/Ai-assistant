@@ -1,39 +1,39 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import bg from '../assets/sign-in-2.png';
+import bg from "../assets/sign-in-2.png";
 import { useState } from "react";
-import api from '../lib/axios.js';
+import api from "../lib/axios.js";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 import { Navigate } from "react-router-dom";
 
 export default function SignIn() {
-  const { user,setUser } = useAuth();
-  const [form, setForm] = useState({ email: '', password: '' });
+  const { user, setUser } = useAuth();
+  const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
-  }
   const navigate = useNavigate();
 
   if (user) {
     return <Navigate to="/dashboard" replace />;
   }
 
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const {data} = await api.post('api/auth/login', form,{withCredentials:true});
-      setUser(data)
+      const { data } = await api.post("api/auth/login", form, { withCredentials: true });
+      setUser(data);
       toast.success("Login successful!");
-      if(data.assistantName){
+      if (data.assistantName) {
         localStorage.setItem("assistantName", data.assistantName);
         localStorage.setItem("assistantAvatar", data.assistantAvatar || "");
         navigate("/dashboard");
-      }
-      else {
+      } else {
         navigate("/profile");
       }
     } catch (error) {
@@ -42,75 +42,86 @@ export default function SignIn() {
     } finally {
       setLoading(false);
     }
-  }
+  };
+
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-black text-white">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(125%_125%_at_50%_10%,#0f0c29_30%,#302b63_70%,#24243e_100%)]"></div>
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#4f4f4f20_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[length:14px_24px]"></div>
-      <div className="flex min-h-screen items-center justify-center px-6 py-12">
-        {/* Left Image Side */}
+    <div className="relative min-h-screen w-full overflow-hidden bg-[#050505] text-[#e5e2e1] tech-grid flex items-center justify-center">
+    
+      <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+        <div className="absolute top-[20%] right-[15%] w-[320px] h-[320px] rounded-full bg-white/[0.01] blur-[120px] animate-blob-float" />
+        <div className="absolute bottom-[20%] left-[15%] w-[350px] h-[350px] rounded-full bg-white/[0.01] blur-[130px] animate-blob-float" style={{ animationDelay: "5s" }} />
+      </div>
+
+      <div className="w-full max-w-md px-6 py-12 z-10">
         <motion.div
-          initial={{ x: -100, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          className="hidden md:flex w-1/2 items-center justify-center"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="relative bg-[#09090d]/85 border border-white/[0.08] backdrop-blur-2xl p-8 rounded-2xl shadow-2xl overflow-hidden"
         >
-          <img
-            src={bg}
-            alt="Voxa AI"
-            className="w-2/4 drop-shadow-[0_0_20px_#22d3ee] rounded-full"
-          />
-        </motion.div>
+          
+          <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-white/20" />
+          <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-white/20" />
+          <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-white/20" />
+          <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-white/20" />
 
-        {/* Form Side */}
-        <div className="flex w-full md:w-1/2 items-center justify-center z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.2 }}
-            className="w-full max-w-md backdrop-blur-sm bg-white/5 p-8 rounded-xl border border-white/10 shadow-lg"
-          >
-            <h1 className="text-3xl font-black text-gradient mb-2 tracking-tighter">Welcome Back 👋</h1>
-            <p className="text-sm text-gray-400 mb-6">Sign in to your Voxa AI dashboard</p>
+         
+          <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-5 font-mono text-[9px] text-gray-400">
+            <div className="flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+              <span>PORTAL: SECURE_AUTH_FEED</span>
+            </div>
+            <span>GATEWAY_MODE: ONLINE</span>
+          </div>
 
-            <form className="space-y-4" onSubmit={handleSubmit}>
+          <h1 className="text-3xl font-black text-white mb-1.5 tracking-tight">Welcome Back 👋</h1>
+          <p className="text-xs text-gray-400 mb-8 font-light">Sign in to initialize Voxa AI receptors</p>
+
+          <form className="space-y-5" onSubmit={handleSubmit}>
+            <div>
+              <label className="block text-[9px] uppercase font-mono tracking-widest text-gray-450 mb-2 ml-1">Email Address</label>
               <input
-                className="w-full border border-white/20 bg-transparent px-4 py-3 rounded-lg text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                className="w-full border border-white/10 bg-black/45 px-4 py-3.5 rounded-xl text-sm text-white placeholder-gray-650 focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/40 transition-all font-sans"
                 type="email"
                 name="email"
-                placeholder="Email"
+                placeholder="name@example.com"
                 autoComplete="email"
                 value={form.email}
                 onChange={handleChange}
                 required
               />
+            </div>
+
+            <div>
+              <label className="block text-[9px] uppercase font-mono tracking-widest text-gray-450 mb-2 ml-1">Password</label>
               <input
-                className="w-full border border-white/20 bg-transparent px-4 py-3 rounded-lg text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                className="w-full border border-white/10 bg-black/45 px-4 py-3.5 rounded-xl text-sm text-white placeholder-gray-650 focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/40 transition-all font-sans"
                 type="password"
                 name="password"
-                placeholder="password"
-                autoComplete="new-password"
+                placeholder="••••••••"
+                autoComplete="current-password"
                 value={form.password}
                 onChange={handleChange}
                 required
-
               />
-              <button
-                type="submit"
-                className="w-full voxa-gradient hover:opacity-90 text-white font-bold py-3 rounded-lg transition shadow-lg shadow-cyan-500/20"
-              >
-                {loading ? 'Authenticating...' : 'Sign In'}
-              </button>
-            </form>
+            </div>
 
-            <p className="mt-4 text-sm text-gray-400">
-              Don’t have an account?{" "}
-              <Link to="/signup" className="text-indigo-400 font-medium hover:underline">
-                Sign up
-              </Link>
-            </p>
-          </motion.div>
-        </div>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-4 rounded-xl bg-white hover:bg-neutral-200 text-neutral-950 font-bold transition-all active:scale-95 disabled:opacity-50 mt-6 shadow-lg shadow-white/5"
+            >
+              {loading ? "Authenticating..." : "Sign In"}
+            </button>
+          </form>
+
+          <p className="mt-8 text-xs text-gray-400 text-center font-light">
+            Don’t have an account?{" "}
+            <Link to="/signup" className="text-orange-500 font-semibold hover:underline">
+              Sign Up
+            </Link>
+          </p>
+        </motion.div>
       </div>
     </div>
   );
