@@ -10,8 +10,7 @@ export function AuthProvider({ children }) {
     useEffect(() => {
         (async () => {
             try {
-                const { data } = await api.get("http://localhost:8001/api/user/user",
-                    { withCredentials: true });
+                const { data } = await api.get("api/user/user");
                 setUser(data);
                 if (data.assistantName) {
                     localStorage.setItem("assistantName", data.assistantName)

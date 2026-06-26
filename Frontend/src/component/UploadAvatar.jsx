@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import axios from 'axios'
+import api from '../lib/axios.js'
 const UploadAvatar = ({ onUpload }) => {
     const [image, setImage] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -24,8 +24,7 @@ const UploadAvatar = ({ onUpload }) => {
         formData.append('avatar', image);
         try {
             setLoading(true);
-            const response = await axios.post('http://localhost:8001/api/user/upload-avatar', formData, {
-                withCredentials: true,
+            const response = await api.post('api/user/upload-avatar', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

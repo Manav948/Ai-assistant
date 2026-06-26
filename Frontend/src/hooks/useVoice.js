@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 export default function useVoice(wakeWord = "jarvis") {
     const [isListening, setIsListening] = useState(false);
@@ -6,6 +6,15 @@ export default function useVoice(wakeWord = "jarvis") {
     const recogRef = useRef(null);
     const errorCooldownRef = useRef(false);
     const restartTimeoutRef = useRef(null);
+    const processedIndexRef = useRef(-1);
+    const wakeWordRef = useRef(wakeWord);
+
+    // Keep wakeWordRef in sync without re-initialising recognition
+    useEffect(() => {
+        wakeWordRef.current = wakeWord.toLowerCase();
+    }, [wakeWord]);
+
+    // Initialise recognition only once
     useEffect(() => {
         const hasSR =
             "SpeechRecognition" in window || "webkitSpeechRecognition" in window;
@@ -14,32 +23,31 @@ export default function useVoice(wakeWord = "jarvis") {
             return;
         }
         const SpeechRecognition =
-        window.SpeechRecognition || window.webkitSpeechRecognition;
+            window.SpeechRecognition || window.webkitSpeechRecognition;
         const recognition = new SpeechRecognition();
         recogRef.current = recognition;
         recognition.continuous = true;
         recognition.interimResults = false;
         recognition.lang = "en-US";
+
         recognition.onstart = () => {
             setIsListening(true);
         };
-        // this event is triggered when the recognition fn ends
+
         recognition.onend = () => {
             setIsListening(false);
             if (!errorCooldownRef.current) {
                 restartRecognition();
             }
         };
-        // this event is triggered when the recognition fn returns an error
+
         recognition.onerror = (event) => {
             if (event.error === "no-speech") {
-                // Quietly restart for no-speech
                 errorCooldownRef.current = true;
                 safeStop();
                 restartAfterDelay(1000);
                 return;
             }
-            
             console.error("Speech recognition error:", event.error);
             if (event.error === "network") {
                 errorCooldownRef.current = true;
@@ -52,35 +60,42 @@ export default function useVoice(wakeWord = "jarvis") {
                 restartAfterDelay(1500);
             }
         };
-        // this event is triggered when the recognition service return a result
+
         recognition.onresult = (event) => {
-            const lastIdx = event.results.length - 1;
-            const raw = event.results[lastIdx][0].transcript;
-            const text = raw.toLowerCase().trim();
-            console.log("Heard:", text);
-            const ww = wakeWord.toLowerCase();
-            if (text.includes(ww)) {
-                const userCommand = text.replace(ww, "").trim();
-                if (userCommand) {
-                    setCommand(userCommand);
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                if (event.results[i].isFinal) {
+                    // Only process each result index once (global — never reset)
+                    if (i <= processedIndexRef.current) continue;
+                    processedIndexRef.current = i;
+
+                    const raw = event.results[i][0].transcript;
+                    const text = raw.toLowerCase().trim();
+                    console.log("Heard final transcript at index", i, ":", text);
+
+                    const ww = wakeWordRef.current;
+                    if (text.includes(ww)) {
+                        const userCommand = text.replace(ww, "").trim();
+                        if (userCommand) {
+                            setCommand(userCommand);
+                        }
+                    }
                 }
             }
         };
+
         const safeStop = () => {
-            try {
-                recognition.stop();
-            } catch (_) {}
+            try { recognition.stop(); } catch (_) {}
         };
-        // restartRecognition is used to restart the recognition after process
+
         const restartRecognition = () => {
             clearTimeout(restartTimeoutRef.current);
             try {
                 recognition.start();
-            } catch (err) {
+            } catch {
                 restartAfterDelay(500);
             }
         };
-        // restartAfterDelay is used to restart recognition after a delay
+
         function restartAfterDelay(ms) {
             clearTimeout(restartTimeoutRef.current);
             restartTimeoutRef.current = setTimeout(() => {
@@ -88,7 +103,9 @@ export default function useVoice(wakeWord = "jarvis") {
                 restartRecognition();
             }, ms);
         }
+
         recognition.start();
+
         return () => {
             clearTimeout(restartTimeoutRef.current);
             recognition.onstart = null;
@@ -97,9 +114,9 @@ export default function useVoice(wakeWord = "jarvis") {
             recognition.onresult = null;
             safeStop();
         };
-    }, [wakeWord]);
+    }, []); // ← empty deps: only init once
 
-    const speak = (text) => {
+    const speak = useCallback((text) => {
         if (!text) return;
         const synth = window.speechSynthesis;
         synth.cancel();
@@ -108,7 +125,11 @@ export default function useVoice(wakeWord = "jarvis") {
         utterance.pitch = 1;
         utterance.rate = 1;
         synth.speak(utterance);
-    };
+    }, []);
 
-    return { isListening, command, speak };
+    const resetCommand = useCallback(() => {
+        setCommand("");
+    }, []);
+
+    return { isListening, command, resetCommand, speak };
 }

@@ -27,9 +27,8 @@ export default function AssistantSetup() {
     setLoading(true);
     try {
       const { data } = await api.put(
-        "http://localhost:8001/api/user/assistant",
-        { assistantName, assistantAvatar: avatar },
-        { withCredentials: true }
+        "api/user/assistant",
+        { assistantName, assistantAvatar: avatar }
       );
       localStorage.setItem("assistantName", assistantName);
       localStorage.setItem("assistantAvatar", avatar);

@@ -19,8 +19,12 @@ export const gemini = async (promptRaw, assistantName, authorName) => {
   }
   if (!prompt) prompt = "Hello!";
 
+  if (!key) {
+    throw new Error("GEMINI_API_KEY is not set in environment variables.");
+  }
+
   try {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`;
+    const url = `https://generativelanguage.googleapis.com/v1/models/${model}:generateContent?key=${key}`;
 
     const body = {
       contents: [
@@ -71,15 +75,24 @@ User message: ${prompt}`
 
     const { data } = await axios.post(url, body, {
       headers: { "Content-Type": "application/json" },
+      timeout: 15000,
     });
 
     const text =
       data?.candidates?.[0]?.content?.parts?.[0]?.text ??
-      '{"type":"general","userinput":"${prompt}","response":"I am not sure."}';
+      `{"type":"general","userinput":"${prompt}","response":"I am not sure how to help with that."}`;
 
     return text;
   } catch (error) {
-    console.error("Gemini API error payload:", error?.response?.data || error.message);
+    const errData = error?.response?.data;
+    console.error("Gemini API error:", JSON.stringify(errData || error.message));
+
+    // Provide a meaningful error with status context
+    const status = error?.response?.status;
+    if (status === 400) throw new Error("Bad request to Gemini API — check the model name.");
+    if (status === 401 || status === 403)
+      throw new Error("Invalid GEMINI_API_KEY. Please update your Backend/.env file.");
+    if (status === 429) throw new Error("Gemini rate limit hit. Please wait a moment.");
     throw new Error("Failed to fetch response from Gemini API");
   }
 };

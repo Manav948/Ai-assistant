@@ -24,5 +24,10 @@ app.use("/api/user/", userRouter);
 connectDB().then(() => {
   app.listen(PORT, () => {
     console.log(`The Server Running On PORT : ${PORT}`);
+    if (!process.env.GEMINI_API_KEY) {
+      console.warn("⚠️  WARNING: GEMINI_API_KEY is not defined in Backend/.env! The AI assistant features will fail until a valid key is provided.");
+    } else {
+      console.log("✅ GEMINI_API_KEY is loaded.");
+    }
   });
 });

@@ -117,6 +117,14 @@ export const askToAssitant = async (req, res) => {
           url: 'https://www.youtube.com',
         });
 
+      case 'youtube_play':
+        return res.status(200).json({
+          type,
+          userInput: inputText,
+          response: `Playing "${inputText}" on YouTube...`,
+          url: `https://www.youtube.com/results?search_query=${encodeURIComponent(inputText)}`,
+        });
+
       case 'facebook_open':
         return res.status(200).json({
           type,
@@ -150,10 +158,21 @@ export const askToAssitant = async (req, res) => {
         });
 
       default:
-        return res.status(400).json({ response: "Sorry, I can't understand" });
+        return res.status(200).json({
+          type: 'general',
+          userInput: inputText,
+          response: response || "I'm not sure how to help with that, but I'm here for you!",
+        });
     }
   } catch (error) {
-    console.error('Error in askToAssitant:', error);
-    return res.status(500).json({ response: 'Internal server error' });
+    console.error('Error in askToAssitant:', error.message || error);
+    const msg = error.message?.includes('GEMINI_API_KEY')
+      ? 'AI key is not configured. Please contact the administrator.'
+      : error.message?.includes('Invalid GEMINI_API_KEY')
+      ? 'Invalid AI key. Please update the server configuration.'
+      : error.message?.includes('rate limit')
+      ? 'AI is busy right now. Please try again in a moment.'
+      : 'Something went wrong on my end. Please try again.';
+    return res.status(500).json({ response: msg });
   }
 };
