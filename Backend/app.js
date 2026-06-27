@@ -11,12 +11,16 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 const isProduction = process.env.NODE_ENV === 'production';
 
+// Clean trailing slashes to prevent matching mismatches
+const cleanOrigin = (url) => url.replace(/\/$/, "");
+
 const allowedOrigins = [
   'http://localhost:5173',
+  'https://ai-assistant-neon-one.vercel.app', // Hardcoded default production frontend
   ...(process.env.FRONTEND_URL
-    ? process.env.FRONTEND_URL.split(',').map((o) => o.trim()).filter(Boolean)
+    ? process.env.FRONTEND_URL.split(',').map((o) => cleanOrigin(o.trim())).filter(Boolean)
     : []),
-];
+].map(cleanOrigin);
 
 app.use(
   cors({
