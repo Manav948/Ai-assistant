@@ -41,8 +41,8 @@ app.get('/', (_req, res) => {
 });
 
 
-app.use('/api/auth/', router);
-app.use('/api/user/', userRouter);
+app.use('/api/auth', router);
+app.use('/api/user', userRouter);
 
 app.use((err, _req, res, _next) => {
   console.error('Unhandled error:', err.message);
