@@ -9,25 +9,54 @@ import cors from 'cors';
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5001;
+const isProduction = process.env.NODE_ENV === 'production';
+
+const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:5173')
+  .split(',')
+  .map((o) => o.trim());
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`CORS blocked: ${origin}`));
+      }
+    },
+    credentials: true,
+  })
+);
+
 
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({
-  origin: process.env.FRONTEND_URL || "http://localhost:5173",
-  credentials: true,
-}));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/api/auth/", router);
-app.use("/api/user/", userRouter);
+app.get('/', (_req, res) => {
+  res.status(200).json({ status: 'ok', message: 'Voxa AI Backend is running.' });
+});
 
-connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`The Server Running On PORT : ${PORT}`);
-    if (!process.env.GEMINI_API_KEY) {
-      console.warn("⚠️  WARNING: GEMINI_API_KEY is not defined in Backend/.env! The AI assistant features will fail until a valid key is provided.");
-    } else {
-      console.log("✅ GEMINI_API_KEY is loaded.");
-    }
-  });
+
+app.use('/api/auth/', router);
+app.use('/api/user/', userRouter);
+
+app.use((err, _req, res, _next) => {
+  console.error('Unhandled error:', err.message);
+  res.status(500).json({ message: 'Internal server error' });
+});
+
+
+app.listen(PORT, () => {
+  console.log(`Server running on PORT: ${PORT} [${isProduction ? 'production' : 'development'}]`);
+  if (!process.env.GEMINI_API_KEY) {
+    console.warn('GEMINI_API_KEY is missing — AI features will fail.');
+  }
+  if (!process.env.JWT_SECRET) {
+    console.warn('JWT_SECRET is missing — auth will fail.');
+  }
+});
+
+connectDB().catch((err) => {
+  console.error('Database connection failed:', err.message);
 });
