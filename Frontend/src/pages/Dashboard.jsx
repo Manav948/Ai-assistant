@@ -106,7 +106,7 @@ export default function Dashboard() {
         }
       `}</style>
 
-      {/* Background blobs */}
+   
       <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
         <div className="absolute top-[20%] left-[30%] w-[300px] h-[300px] rounded-full bg-white/[0.01] blur-[100px] animate-blob-float" />
         <div className="absolute bottom-[20%] right-[20%] w-[350px] h-[350px] rounded-full bg-white/[0.01] blur-[120px] animate-blob-float" style={{ animationDelay: "5s" }} />
@@ -117,13 +117,12 @@ export default function Dashboard() {
       <main className="flex-1 md:ml-64 h-screen flex flex-col items-center justify-center p-4 sm:p-6 lg:p-12 relative overflow-hidden">
         <div className="w-full max-w-4xl bg-[#09090d]/90 border border-white/[0.08] backdrop-blur-2xl rounded-3xl p-6 lg:p-10 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 relative min-h-[580px] shadow-2xl">
           
-          {/* Corner brackets */}
+          
           <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-white/20" />
           <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-white/20" />
           <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-white/20" />
           <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-white/20" />
 
-          {/* Status badge */}
           <div className="absolute top-4 right-6 flex items-center space-x-2 bg-white/5 border border-white/10 rounded-full px-3 py-1 text-xs">
             <div className={`h-2 w-2 rounded-full ${isListening ? "bg-white animate-pulse shadow-[0_0_8px_rgba(255,255,255,0.7)]" : "bg-white/20"}`} />
             <span className="text-[10px] uppercase tracking-widest text-white/90 font-bold">

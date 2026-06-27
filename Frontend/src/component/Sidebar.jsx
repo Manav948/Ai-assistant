@@ -76,7 +76,6 @@ export default function Sidebar() {
             <div>
               <Link to="/" className="flex items-center space-x-2 group">
                 <h1 className="text-2xl font-black text-white tracking-tight">Voxa <span className="text-white/80">AI</span></h1>
-                <span className="text-white text-lg group-hover:scale-125 transition-transform duration-300">✨</span>
               </Link>
               <p className="text-[10px] uppercase font-mono tracking-widest text-gray-500 mt-1">Assistant Interface</p>
             </div>

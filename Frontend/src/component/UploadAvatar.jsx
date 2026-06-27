@@ -45,7 +45,7 @@ const UploadAvatar = ({ onUpload }) => {
             <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-white/20" />
             <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-white/20" />
 
-            <h2 className="text-lg font-semibold mb-4 text-white">Upload Your AI Avatar 👤</h2>
+            <h2 className="text-lg font-semibold mb-4 text-white">Upload Your AI Avatar </h2>
 
             <input
                 type="file"

@@ -21,7 +21,6 @@ export default function Footer() {
               <span className="text-xl font-black text-white tracking-tight">
                 Voxa <span className="text-white/85">AI</span>
               </span>
-              <span className="text-white text-sm group-hover:scale-125 transition-transform duration-300">✨</span>
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed max-w-sm">
               Your intelligent virtual assistant powered by Voxa AI technology. 

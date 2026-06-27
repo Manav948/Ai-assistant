@@ -59,7 +59,7 @@ export default function SignUp() {
             <span>GATEWAY_MODE: ONLINE</span>
           </div>
 
-          <h1 className="text-3xl font-black text-white mb-1.5 tracking-tight">Create an Account 🎉</h1>
+          <h1 className="text-3xl font-black text-white mb-1.5 tracking-tight">Create an Account </h1>
           <p className="text-xs text-gray-400 mb-8 font-light">Join the future of voice-powered assistance</p>
 
           <form className="space-y-4" onSubmit={handleSubmit}>

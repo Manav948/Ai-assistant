@@ -41,7 +41,6 @@ export default function Header() {
             <span className="text-2xl font-black text-white tracking-tight">
               Voxa <span className="text-white/85">AI</span>
             </span>
-            <span className="text-white text-lg group-hover:scale-125 transition-transform duration-300">✨</span>
           </Link>
 
           <nav className="hidden md:flex items-center space-x-8">
