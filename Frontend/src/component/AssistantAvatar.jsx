@@ -18,7 +18,7 @@ export default function AssistantAvatar({ isListening, assistantAvatar, assistan
           {assistantAvatar ? (
             <img
               src={assistantAvatar}
-              alt="Voxa AI Assistant"
+              alt="Astra AI Assistant"
               className={`h-full w-full object-cover transition-transform duration-700 ${isListening ? "scale-105" : "scale-100"}`}
             />
           ) : (
@@ -31,7 +31,7 @@ export default function AssistantAvatar({ isListening, assistantAvatar, assistan
 
     
       <h2 className="text-2xl font-bold text-white tracking-tight">
-        {assistantName || "Voxa Assistant"}
+        {assistantName || "AstraAssistant"}
       </h2>
       
     

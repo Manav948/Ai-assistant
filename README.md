@@ -1,10 +1,10 @@
-# Voxa AI — Voice Assistant
+# Astra AI — Voice Assistant
 
-Voxa AI is a full-stack AI-powered voice assistant that enables real-time speech interaction with intelligent responses. It integrates modern web technologies with advanced AI capabilities to deliver a seamless conversational experience.
+AstraAI is a full-stack AI-powered voice assistant that enables real-time speech interaction with intelligent responses. It integrates modern web technologies with advanced AI capabilities to deliver a seamless conversational experience.
 
 # Overview
 
-Voxa AI allows users to interact using voice commands, process natural language using Google Gemini API, and receive spoken responses in real time.
+AstraAI allows users to interact using voice commands, process natural language using Google Gemini API, and receive spoken responses in real time.
 Designed with a modern UI/UX and scalable architecture, this project demonstrates full-stack development, AI integration, and real-time interaction systems.
 
 ## Features

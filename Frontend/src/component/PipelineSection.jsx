@@ -24,7 +24,7 @@ export default function PipelineSection() {
           Real-Time Conversation Pipeline
         </h2>
         <p className="text-gray-400 text-base sm:text-lg font-light leading-relaxed">
-          Voxa AI bridges human expression and AI understanding in a split second. Here is how your vocal input transforms into spoken intelligence.
+          Astra AI bridges human expression and AI understanding in a split second. Here is how your vocal input transforms into spoken intelligence.
         </p>
       </motion.div>
 

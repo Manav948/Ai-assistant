@@ -5,12 +5,12 @@ import { Mic, Cpu, Layers } from "lucide-react";
 const features = [
   {
     title: "Voice-First Intelligence",
-    desc: "Natural voice interactions powered by Voxa AI for a truly hands-free, fluid conversational experience.",
+    desc: "Natural voice interactions powered by Astra AI for a truly hands-free, fluid conversational experience.",
     icon: Mic,
   },
   {
     title: "Intelligent Automation",
-    desc: "Let Voxa handle your scheduling, notes, and workflows with autonomous, real-time command execution.",
+    desc: "Let Astra handle your scheduling, notes, and workflows with autonomous, real-time command execution.",
     icon: Cpu,
   },
   {
@@ -31,10 +31,10 @@ export default function FeaturesSection() {
         className="text-center max-w-3xl mb-16 mx-auto"
       >
         <h2 className="text-3xl sm:text-4xl font-black mb-4 tracking-tight text-white">
-          Why Choose Voxa AI?
+          Why Choose Astra AI?
         </h2>
         <p className="text-gray-400 text-base sm:text-lg font-light leading-relaxed">
-          Built with cutting-edge conversational technology, Voxa AI simplifies how you interact with artificial intelligence.
+          Built with cutting-edge conversational technology, AstraAI simplifies how you interact with artificial intelligence.
         </p>
       </motion.div>
 

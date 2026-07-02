@@ -21,12 +21,12 @@ export default function Footer() {
           <div className="space-y-4">
             <Link to="/" className="flex items-center space-x-2 group">
               <span className="text-xl font-black text-white tracking-tight">
-                Voxa <span className="text-white/85">AI</span>
+                Astra <span className="text-white/85">AI</span>
               </span>
             </Link>
 
             <p className="text-gray-400 text-sm leading-relaxed max-w-sm">
-              Your intelligent virtual assistant powered by Voxa AI technology.
+              Your intelligent virtual assistant powered by Astra AI technology.
               Elevate your productivity with voice-powered precision.
             </p>
           </div>
@@ -152,7 +152,7 @@ export default function Footer() {
         {/* Bottom */}
         <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
           <p className="text-gray-500 text-xs">
-            © {new Date().getFullYear()} Voxa AI. All rights reserved.
+            © {new Date().getFullYear()} AstraAI. All rights reserved.
           </p>
 
           <div className="flex items-center space-x-5">

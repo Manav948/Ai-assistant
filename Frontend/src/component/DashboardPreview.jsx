@@ -21,7 +21,7 @@ export default function DashboardPreview() {
             <div className="flex items-center justify-between border-b border-white/5 pb-3">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-white animate-pulse shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
-                <span className="font-mono text-[10px] text-white/60 tracking-wider">Voxa Console</span>
+                <span className="font-mono text-[10px] text-white/60 tracking-wider">Astra Console</span>
               </div>
               <div className="flex gap-1.5">
                 <div className="w-2 h-2 rounded-full bg-white/10" />
@@ -33,10 +33,10 @@ export default function DashboardPreview() {
             
             <div className="flex flex-col gap-3 py-2">
               <div className="self-end max-w-[85%] bg-white/10 border border-white/15 text-white rounded-2xl rounded-tr-none px-4 py-2.5 text-xs shadow-md">
-                What is the core architecture of Voxa AI?
+                What is the core architecture of AstraAI?
               </div>
               <div className="self-start max-w-[85%] bg-[#050505]/60 border border-white/5 text-gray-300 rounded-2xl rounded-tl-none px-4 py-2.5 text-xs shadow-md leading-relaxed">
-                Voxa AI combines real-time Web Speech APIs with the Google Gemini engine. Input audio is transcribed instantly, routed via Node/Express, analyzed by Gemini, and spoken back using localized Speech Synthesis.
+                Astra AI combines real-time Web Speech APIs with the Google Gemini engine. Input audio is transcribed instantly, routed via Node/Express, analyzed by Gemini, and spoken back using localized Speech Synthesis.
               </div>
             </div>
 
@@ -66,7 +66,7 @@ export default function DashboardPreview() {
           </h2>
 
           <p className="text-gray-400 text-base sm:text-lg leading-relaxed font-light">
-            A minimal, latency-focused interface designed to elevate your daily routine. Voxa AI stays out of your way until you summon it.
+            A minimal, latency-focused interface designed to elevate your daily routine. AstraAI stays out of your way until you summon it.
           </p>
 
           <ul className="space-y-3.5 text-gray-300 text-sm font-light">

@@ -39,7 +39,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-2 group">
             <span className="text-2xl font-black text-white tracking-tight">
-              Voxa <span className="text-white/85">AI</span>
+              Astra <span className="text-white/85">AI</span>
             </span>
           </Link>
 

@@ -19,7 +19,7 @@ export default function CtaSection() {
           Step into the future.
         </h3>
         <p className="text-gray-400 mb-8 text-base sm:text-lg font-light max-w-lg mx-auto">
-          Join thousands of users who have upgraded their daily workflow with Voxa AI.
+          Join thousands of users who have upgraded their daily workflow with Astra AI.
         </p>
         <Link
           to="/signup"

@@ -51,7 +51,7 @@ export default function Profile() {
           
           <div className="text-center mb-8 mt-10 md:mt-0">
             <h1 className="text-3xl sm:text-4xl font-black text-white mb-3 tracking-tight">
-              Personalize Your Voxa AI 💡
+              Personalize Your Astra AI
             </h1>
             <p className="text-gray-400 text-sm sm:text-base font-light">
               Upload your own custom image or pick from our collection of avatars.

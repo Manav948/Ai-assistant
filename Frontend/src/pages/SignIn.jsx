@@ -75,7 +75,7 @@ export default function SignIn() {
           </div>
 
           <h1 className="text-3xl font-black text-white mb-1.5 tracking-tight">Welcome Back </h1>
-          <p className="text-xs text-gray-400 mb-8 font-light">Sign in to initialize Voxa AI receptors</p>
+          <p className="text-xs text-gray-400 mb-8 font-light">Sign in to initialize Astra AI receptors</p>
 
           <form className="space-y-5" onSubmit={handleSubmit}>
             <div>
