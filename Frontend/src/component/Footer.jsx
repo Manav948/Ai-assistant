@@ -127,7 +127,7 @@ export default function Footer() {
               </a>
 
               <a
-                href="https://linkedin.com/in/manav-valani"
+                href="https://www.linkedin.com/in/manavvalani/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 text-gray-400 hover:text-white transition-all duration-300 group"
@@ -137,7 +137,7 @@ export default function Footer() {
               </a>
 
               <a
-                href="https://x.com/"
+                href="https://x.com/ManavValani"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 text-gray-400 hover:text-white transition-all duration-300 group"
