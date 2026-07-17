@@ -15,8 +15,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 const cleanOrigin = (url) => url.replace(/\/$/, "");
 
 const allowedOrigins = [
-  'http://localhost:5173',
-  'https://ai-assistant-neon-one.vercel.app', // Hardcoded default production frontend
+  'https://astra.ai.manavvalani.in',
   ...(process.env.FRONTEND_URL
     ? process.env.FRONTEND_URL.split(',').map((o) => cleanOrigin(o.trim())).filter(Boolean)
     : []),
